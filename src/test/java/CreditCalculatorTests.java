@@ -35,7 +35,7 @@ public class CreditCalculatorTests {
     }
 
     private static Stream<Arguments> sourceCalculateMonthlyPayment() {
-        return Stream.of(Arguments.of(), Arguments.of());
+        return Stream.of(Arguments.of(5, "500_000", "13.055" ), Arguments.of(10, "1_000_000", "10.222"));
     }
 
     @ParameterizedTest
@@ -51,7 +51,7 @@ public class CreditCalculatorTests {
     }
 
     private static Stream<Arguments> sourceCalculateTotalDebt() {
-        return Stream.of(Arguments.of(), Arguments.of());
+        return Stream.of(Arguments.of(5, "500_000", "13.055"), Arguments.of(10, "1_000_000", "10.222"));
     }
 
     @ParameterizedTest
@@ -67,7 +67,7 @@ public class CreditCalculatorTests {
     }
 
     private static Stream<Arguments> sourceCalculateOverPaymentForEntirePeriod() {
-        return Stream.of(Arguments.of(), Arguments.of());
+        return Stream.of(Arguments.of(5, "500_000", "13.055"), Arguments.of(10, "1_000_000", "10.222"));
     }
 
 }
