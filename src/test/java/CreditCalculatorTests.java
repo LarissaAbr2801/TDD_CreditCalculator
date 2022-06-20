@@ -24,7 +24,7 @@ public class CreditCalculatorTests {
 
     @ParameterizedTest
     @MethodSource("sourceCalculateMonthlyPayment")
-    void testCalculateMonthlyPayment(int yearsNumber, BigDecimal loanAmount, BigDecimal interestRate,
+    void testCalculateMonthlyPayment(BigDecimal yearsNumber, BigDecimal loanAmount, BigDecimal interestRate,
                                      BigDecimal expected) {
         creditCalculator = new CreditCalculator();
 
@@ -35,39 +35,46 @@ public class CreditCalculatorTests {
     }
 
     private static Stream<Arguments> sourceCalculateMonthlyPayment() {
-        return Stream.of(Arguments.of(5, "500_000", "13.055" ), Arguments.of(10, "1_000_000", "10.222"));
+        return Stream.of(Arguments.of(BigDecimal.valueOf(5),
+                BigDecimal.valueOf(500_000),
+                BigDecimal.valueOf(0.135), BigDecimal.valueOf(13_958.333)));
     }
 
     @ParameterizedTest
     @MethodSource("sourceCalculateTotalDebt")
-    void testCalculateTotalDebt(int yearsNumber, BigDecimal loanAmount, BigDecimal interestRate,
+    void testCalculateTotalDebt(BigDecimal yearsNumber, BigDecimal loanAmount, BigDecimal interestRate,
                                 BigDecimal expected) {
         creditCalculator = new CreditCalculator();
 
         BigDecimal result = creditCalculator.calculateTotalDebt(yearsNumber, loanAmount,
                 interestRate);
 
-        Assertions.assertEquals(result, expected);
+        Assertions.assertEquals(expected, result);
     }
 
     private static Stream<Arguments> sourceCalculateTotalDebt() {
-        return Stream.of(Arguments.of(5, "500_000", "13.055"), Arguments.of(10, "1_000_000", "10.222"));
+        return Stream.of(Arguments.of(BigDecimal.valueOf(5), BigDecimal.valueOf(500_000),
+                BigDecimal.valueOf(0.135), new BigDecimal("837500.000")));
     }
 
     @ParameterizedTest
     @MethodSource("sourceCalculateOverPaymentForEntirePeriod")
-    void testCalculateOverPaymentForEntirePeriod(int yearsNumber, BigDecimal loanAmount,
+    void testCalculateOverPaymentForEntirePeriod(BigDecimal yearsNumber, BigDecimal loanAmount,
                                                  BigDecimal interestRate, BigDecimal expected) {
         creditCalculator = new CreditCalculator();
 
         BigDecimal result = creditCalculator.calculateOverPaymentForEntirePeriod(yearsNumber, loanAmount,
                 interestRate);
 
-        Assertions.assertEquals(result, expected);
+        Assertions.assertEquals(expected, result);
     }
 
     private static Stream<Arguments> sourceCalculateOverPaymentForEntirePeriod() {
-        return Stream.of(Arguments.of(5, "500_000", "13.055"), Arguments.of(10, "1_000_000", "10.222"));
-    }
+        return Stream.of(Arguments.of(BigDecimal.valueOf(5), BigDecimal.valueOf(500_000),
+                BigDecimal.valueOf(0.135), new BigDecimal("337500.000")));
 
+    }
 }
+
+
+
